@@ -1,0 +1,32 @@
+# meta-display
+
+This README file contains information on the contents of the meta-display layer.
+
+Please see the corresponding sections below for details.
+
+## Adding the meta-display layer to your build
+
+Run 'bitbake-layers add-layer meta-display'
+
+## Waveshare Displays
+
+To add [Waveshare display](https://github.com/waveshare/LCD-show) support to your machine, add the following to `local.conf`
+
+```conf
+ENABLE_SPI_BUS = "1"
+MACHINE_FEATURES += "waveshare"
+KERNEL_DEVICETREE:append:rpi = " \
+overlays/oled-ssd1306.dtbo \
+overlays/oled-ssd1331.dtbo \
+overlays/waveshare32b.dtbo \
+overlays/waveshare35a.dtbo \
+overlays/waveshare35b.dtbo \
+overlays/waveshare35b-v2.dtbo \
+overlays/waveshare35c.dtbo \
+"
+RPI_EXTRA_CONFIG:append = "\n\
+dtoverlay=waveshare35a\n\
+"
+```
+
+`RPI_EXTRA_CONFIG` is configured by default for a machine with [Waveshare 3.5 inch Raspberry Pi LCD (A)](https://www.waveshare.com/wiki/3.5inch_RPi_LCD_(A)), change appropriately.
